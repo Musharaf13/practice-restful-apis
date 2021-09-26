@@ -6,7 +6,9 @@ const PostSchema = mongoose.Schema({
         required: true,
     },
     gender: String,
-    skill: String
+    skill: String,
+    userId: String,
+    productImage: String
 });
 
 module.exports = mongoose.model('Posts', PostSchema);
