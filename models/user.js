@@ -6,7 +6,9 @@ const UserSchema = mongoose.Schema({
         required: true,
     },
     email: String,
-    city: String
+    city: String,
+    habbits: Array,
+    car:Object
 });
 
-module.exports=mongoose.model('users', UserSchema);
+module.exports = mongoose.model('users', UserSchema);

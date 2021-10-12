@@ -1,13 +1,27 @@
 const express = require('express');
 router = express.Router();
-const User = require('../models/user');
+router.get("/", async (req, res) => {
+    try {
+        const allUsers = await User.find().select('car');
+        // console.log(allUsers.document.habbits);
+        res.json(allUsers);
+    } catch (err) {
+        res.json({ message: "tantan" + err });
+    }
+    // res.send({message:"this is users scnree"});
+
+});
+// const User = require('../models/user');
+module.exports = router;
 
 //Register User
 router.post("/", async (req, res) => {
     const user = User({
         name: req.body.name,
         email: req.body.email,
-        city: req.body.city
+        city: req.body.city,
+        habbits: req.body.habbits,
+        car: req.body.car
     });
     const registeredUser = await user.save();
     try {
@@ -18,17 +32,9 @@ router.post("/", async (req, res) => {
 
 });
 //Fetch all users
-router.get("/", async (req, res) => {
-    try {
-        const allUsers = await User.find();
-        res.json(allUsers);
-    } catch (err) {
-        res.json({ message: err });
-    }
 
-});
 
-//Fetch Specific User
+// Fetch Specific User
 router.get("/:userId", async (req, res) => {
     try {
         const specificUser = await User.findById(req.params.userId);
@@ -38,4 +44,3 @@ router.get("/:userId", async (req, res) => {
     }
 })
 
-module.exports = router;

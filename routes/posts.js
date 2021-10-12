@@ -31,7 +31,8 @@ const upload = multer({
 
 const Post = require('../models/post');
 // Post a post
-router.post("/:userId", upload.single('productImage'), async (req, res) => {
+router.post("/userpost/:userId", upload.single('productImage'), async (req, res) => {
+    console.log("we are in specific post")
     console.log(req.file.path);
     console.log(req.file);
     const post = new Post({
@@ -104,6 +105,21 @@ router.get("/finduser/:userId", async (req, res) => {
 
 //Update specific post for specific user
 router.post('/', async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        const postId = req.body.postId;
+        const skill = req.body.skill;
+        console.log(userId);
+        console.log(postId);
+        // res.json(await Post.findById(req.body.postId));
+        res.json(await Post.findOneAndUpdate({ userId: userId, _id: postId }, { $set: { skill: skill } }, { new: true }));
+
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
+router.post('/specific', async (req, res) => {
     try {
         const userId = req.body.userId;
         const postId = req.body.postId;
