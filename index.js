@@ -25,7 +25,7 @@ app.use('/orderItems', ordersItemsRoute);
 
 //Routes
 app.get('/', (req, res) => {
-    res.send("This is very default route")
+    res.send("This is very default route and Home SCreen")
 });
 
 app.listen(process.env.PORT);
